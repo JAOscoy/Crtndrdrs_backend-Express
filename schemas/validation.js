@@ -1,6 +1,6 @@
 // Create global offer for secondary packaging current machine'slarg
 
-global.oferta = {
+const oferta = {
     estructura: ["uno", "dos"],
     tipo: ["tres", "cuatro"],
     calibreECT: ["37", "38", "39"],
@@ -11,3 +11,6 @@ global.oferta = {
     tipoUnion: ["CIP", "CIG"],
     status: ["vendido", "borrador"]
 }
+
+export default oferta;
+

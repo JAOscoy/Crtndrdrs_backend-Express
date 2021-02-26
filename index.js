@@ -1,18 +1,22 @@
 // Config .env file
 
-require('dotenv').config()
-
+import dotenv from 'dotenv';
+dotenv.config()
+import database from './middlewares/database.js';
+database();
+import Router from 'express'
+import salesProductSchema from './schemas/salesProduct.js'
 // Import all packages and constants used 
 
-const express = require('express')
-const helmet = require('helmet')
-const cors  = require('cors');
-import oferta from './schemas/validation';
+import express from 'express';
+import helmet from 'helmet';
+import cors  from 'cors';
+import oferta from './schemas/validation.js';
 
 // Set all routes
 
 //import UserRoutes from './routes/users';
-//import ProductRoutes from './routes/products';
+import salesProductRoutes from './routes/salesProduct.js';
 //import ProductOrdersRoutes from '.routes/productOrders';
 //import ServiceOrdersRoutes from '.routes/serviceOrders';
 //import AuthRoutes from './routes/auth';
@@ -32,14 +36,17 @@ app.use(express.json()); // It let receive request body as JSON format
 // Auto-addressing requests
 
 //app.use('/users', UserRoutes);
-//app.use('/products', ProductRoutes);
+app.use('/products', salesProductRoutes);
 //app.use('/auth', AuthRoutes);
 //app.use('/productorders', ProductOrdersRoutes)
 //app.use('/serviceorders', ServiceOrdersRoutes)
 
+app.get('/', (req, res) => {
+  res.send('Bien hecho');
+})
+
 // Server running
 
 app.listen(process.env.PORT, () => {
-  console.log('Escuchando en el puerto ' + process.env.PORT);
-  console.log(oferta.estructura);
+  console.log('Escuchando en el puerto ' + process.env.PORT );
 });
