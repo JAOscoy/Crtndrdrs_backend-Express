@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
-const { Schema, model } = mongoose;
-import oferta  from './validation.js'; // Importing tools from dependency
+const { Schema, model } = require('mongoose');
+const oferta = require('./validation.js'); // Importing tools from dependency
 
 const salesProductSchema = new Schema({
     idLocal: { type: String, required: true, unique: true},
@@ -17,4 +16,4 @@ const salesProductSchema = new Schema({
     status: { type: String, enum: oferta.status }
 }, { timestamps: true });
 
-export default model('productosventa', salesProductSchema, 'Productos');
+module.exports = model('productosventa', salesProductSchema, 'Productos');

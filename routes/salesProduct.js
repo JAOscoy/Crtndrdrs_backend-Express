@@ -1,10 +1,9 @@
-import express from 'express'
-import salesProductSchema from '../schemas/salesProduct.js'
 
-const Router = express.Router();
+const salesProductModel = require('../schemas/salesProduct.js')
+const Router = require('express').Router();
 
 Router.get('/', (req, res) =>{
-    salesProductSchema.find()
+    salesProductModel.find()
     .then(function (products) {
       res.json({ data: products });
     })
@@ -16,7 +15,7 @@ Router.get('/', (req, res) =>{
     })
 })
 
-export default Router
+module.exports = Router
 
 
 

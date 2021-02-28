@@ -1,7 +1,7 @@
-import moongose from 'mongoose';
+const { connect } = require('mongoose');
 
-export default () => {
-  moongose.connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true })
+module.exports = function () {
+  connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true })
     .then(function () {
       console.log('Conectado a la base de datos :)')
     })

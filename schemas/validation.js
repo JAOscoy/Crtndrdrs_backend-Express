@@ -12,5 +12,5 @@ const oferta = {
     status: ["vendido", "borrador"]
 }
 
-export default oferta;
+module.exports = oferta;
 

@@ -1,29 +1,42 @@
 // Config .env file
 
-import dotenv from 'dotenv';
-dotenv.config()
-import database from './middlewares/database.js';
-database();
-import Router from 'express'
-import salesProductSchema from './schemas/salesProduct.js'
+require('dotenv').config();
+require('./middlewares/database')();
+
+// Extract libraries to use
+
+const Router = require('express');
+const salesProductSchema = require('./schemas/salesProduct.js');
+const https = require('https');
+const fs = require('fs');
+const crypto = require('crypto');
+
+// Create https 
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
 // Import all packages and constants used 
 
-import express from 'express';
-import helmet from 'helmet';
-import cors  from 'cors';
-import oferta from './schemas/validation.js';
-
-// Set all routes
-
-//import UserRoutes from './routes/users';
-import salesProductRoutes from './routes/salesProduct.js';
-//import ProductOrdersRoutes from '.routes/productOrders';
-//import ServiceOrdersRoutes from '.routes/serviceOrders';
-//import AuthRoutes from './routes/auth';
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
+const oferta = require('./schemas/validation.js');
 
 // Set application const
 
 const app = express();
+
+// Set all routes
+
+//import UserRoutes from './routes/users';
+const salesProductRouter = require('./routes/salesProduct.js');
+//import ProductOrdersRoutes from '.routes/productOrders';
+//import ServiceOrdersRoutes from '.routes/serviceOrders';
+//import AuthRoutes from './routes/auth';
+
+
 
 // Set app middlewares to use
 
@@ -36,7 +49,7 @@ app.use(express.json()); // It let receive request body as JSON format
 // Auto-addressing requests
 
 //app.use('/users', UserRoutes);
-app.use('/products', salesProductRoutes);
+app.use('/products', salesProductRouter);
 //app.use('/auth', AuthRoutes);
 //app.use('/productorders', ProductOrdersRoutes)
 //app.use('/serviceorders', ServiceOrdersRoutes)
@@ -47,6 +60,7 @@ app.get('/', (req, res) => {
 
 // Server running
 
-app.listen(process.env.PORT, () => {
-  console.log('Escuchando en el puerto ' + process.env.PORT );
-});
+https.createServer(options, function (req, res) {
+  res.writeHead(200);
+  res.json("Bienvenidos a crtndrdrs");
+}).listen(process.env.PORT);
