@@ -1,34 +1,29 @@
-const express = require('express');
-const router = express.Router();
+const jwt = require('express-jwt');
+const secret = process.env.JWT_SECRET
 
-router.post('/login', async (req, res) => {
-    const { body } = req;
-    const user = await sequelize.models.users.findOne({ where: {
-      email: body.email,
-    }});
-    // Verify if user exists
-    if (!user) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-    // Verify password
-    if (!user.validPassword(body.password)) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-  
-    // Generate a token
-    const token = jwt.sign({ userId: user.id }, 'secretkey', {
-      expiresIn: 36000,
-    });
-    
-    // 
-    return res.json({
-      message: 'Authenticated sucessfully',
-      token,
-    });
-  });
+function getTokenFromHeader(req) {
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token' ||
+    req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+    return req.headers.authorization.split(' ')[1];
+  }
 
-router.post('/signup', (req, res) => {
-  // TODO: Add logic for register a new user
-});
+  return null;
+}
 
-module.exports = router;
+const auth = {
+  requerido: jwt({
+    secret: secret,
+    algorithms: ['HS256'],
+    userProperty: 'usuario',
+    getToken: getTokenFromHeader
+  }),
+  opcional: jwt({
+    secret: secret,
+    algorithms: ['HS256'],
+    userProperty: 'usuario',
+    credentialsRequired: false,
+    getToken: getTokenFromHeader
+  })
+};
+
+module.exports = auth;

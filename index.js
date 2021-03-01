@@ -34,10 +34,9 @@ app.use(cors()) // CORS let specify from which domains is possible to communicat
 app.use(express.urlencoded({ extended: true })); // It will verify if the Content-type header matches
 app.use(express.json()); // It let receive request body as JSON format
 
+
 // Set all routes
 
-
-app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/users'));
 app.use('/products', require('./routes/salesProduct'));
 //app.use('/auth', AuthRoutes);
