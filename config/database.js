@@ -1,4 +1,5 @@
 const { connect } = require('mongoose');
+const { Sequelize } = require('sequelize');
 
 module.exports = function () {
   connect(process.env.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true })

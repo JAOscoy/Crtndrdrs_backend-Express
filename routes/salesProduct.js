@@ -1,6 +1,10 @@
+// Import libraries to use
 
-const salesProductModel = require('../schemas/salesProduct.js')
+const salesProductModel = require('../schemas/salesProduct.js');
+const uniqueValidator = require("mongoose-unique-validator");;
 const Router = require('express').Router();
+
+// CRUD controllers
 
 Router.get('/', (req, res) =>{
     salesProductModel.find()
@@ -15,7 +19,7 @@ Router.get('/', (req, res) =>{
     })
 })
 
-module.exports = Router
+module.exports = Router;
 
 
 
