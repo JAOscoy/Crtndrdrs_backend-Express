@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 require('./config/database')();
+require('./config/passport');
 
 // Import all packages to use
 
@@ -37,9 +38,9 @@ app.use(express.json()); // It let receive request body as JSON format
 
 // Set all routes
 
+app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/users'));
 app.use('/products', require('./routes/salesProduct'));
-//app.use('/auth', AuthRoutes);
 //app.use('/productorders', ProductOrdersRoutes)
 //app.use('/serviceorders', ServiceOrdersRoutes)
 

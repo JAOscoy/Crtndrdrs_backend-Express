@@ -2,7 +2,7 @@
 const userModel = require('../schemas/users');
 const uniqueValidator = require("mongoose-unique-validator");
 const Router = require('express').Router();
-const auth = require('./auth')
+const auth = require('./auth');
 
 Router.get('/', (req, res) =>{
     userModel.find()
