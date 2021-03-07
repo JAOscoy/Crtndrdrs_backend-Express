@@ -2,15 +2,13 @@
 
 require('dotenv').config();
 require('./config/database')();
-require('./config/passport');
+//require('./config/passport');
 
 // Import all packages to use
 
 const express = require('express');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const cors = require('cors'); 
-const router = express.Router();
-const salesProductSchema = require('./schemas/salesProduct.js');
 const fs = require('fs');
 const crypto = require('crypto');
 
@@ -29,7 +27,7 @@ const app = express();
 
 // Set Safety middlewares:
 
-app.use(helmet()); // Add headers to protect transfered data.
+// app.use(helmet()); // Add headers to protect transfered data.
 app.use(cors()) // CORS let specify from which domains is possible to communicate
 
 app.use(express.urlencoded({ extended: true })); // It will verify if the Content-type header matches
@@ -38,11 +36,10 @@ app.use(express.json()); // It let receive request body as JSON format
 
 // Set all routes
 
-app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/users'));
-app.use('/products', require('./routes/salesProduct'));
-//app.use('/productorders', ProductOrdersRoutes)
-//app.use('/serviceorders', ServiceOrdersRoutes)
+app.use('/salesProduct', require('./routes/salesProduct'));
+//app.use('/salesDesign', require('./routes/salesDesign'));
+//app.use('/serviceOrders', require('./routes/salesDesign'));
 
 app.get('/', (req, res) => {
   res.send('Bien hecho');
