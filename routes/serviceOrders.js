@@ -40,6 +40,8 @@ Router.post('/me/newOrder', (req, res, next) => {
   serviceOrder.save(body)
   .then((order) => {
     res.json({ data: order });
+    user.cartProducts = [];
+    user.cartDesigns = [];
   })
   .catch(next, (error) => {
     res.status(401).json({
