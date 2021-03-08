@@ -3,6 +3,8 @@
 const salesProductModel = require('../schemas/salesProduct.js');
 const uniqueValidator = require("mongoose-unique-validator");
 const Router = require('express').Router();
+const userModel = require('../schemas/users.js')
+
 
 // CRUD controllers
 
@@ -10,7 +12,7 @@ const Router = require('express').Router();
 
 Router.get('/', (req, res, next) =>{
     salesProductModel.find()
-    .then(function (products) {
+    .then((products) => {
       res.json({ data: products });
     })
     .catch(next, (error) => {
@@ -37,18 +39,32 @@ Router.post('/', (req, res, next) => {
   })
 });
 
-Router.put('/:idLocal', (req, res, next) => {
-  let { idLocal } = req.params
-  salesProductModel.findById(req.params.id).then(salesProduct => {
-    if (!salesProduct) { return res.sendStatus(401); }
-    
+Router.post('/me/salesProducts', (req, res) => {
+  const { body } = req;
+  const { id } = req.user;
+  new salesProductModel(body).save()
+    .then((document) => {
+      res.json({ data: document })
+      const { idLocal } = document;
+      userModel.findByIdAndUpdate(id, { $push: { cartProducts: idLocal   } })
+    .then(function () {
+      res.json(document);
+    })
+    .catch((error) => {
+      res.status(400).json({
+        message: error.message,
+        code: "CARTPRODUCTS_PUSH"
+      });
+    })
+    })
+    .catch((error) => {
+      res.status(400).json({
+        message: error.message,
+        code: "PRODUCT_NOT_CREATED"})})
+});
 
-  })
-})
 
-
-
-module.exports = Router
+module.exports = Router;
 
 
 

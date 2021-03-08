@@ -1,4 +1,4 @@
-// Create global offer for secondary packaging current machine'slarg
+// Create global offer for current production feasibility
 
 const oferta = {
     estructura: ["uno", "dos"],
@@ -9,8 +9,12 @@ const oferta = {
     ancho: [300, 400],
     alto: [500, 600],
     tipoUnion: ["CIP", "CIG"],
-    status: ["vendido", "borrador"]
-}
+    status: ["vendido", "borrador"],
+    estado: ["Pendiente", "Rechazada", "En proceso", "Finalizada"],
+    solicitud: {
+            tipo: ["solicitud", "pedido"]
+        }
+    };
 
-module.exports = oferta;
+module.exports = oferta
 

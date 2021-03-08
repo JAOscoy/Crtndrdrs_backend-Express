@@ -1,5 +1,9 @@
+// Importing dependencies and constants
+
 const jwt = require('express-jwt');
 const secret = process.env.JWT_SECRET
+
+// Create a function to extract Token from request.
 
 const getTokenFromHeader = (req) => {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token' ||
@@ -8,6 +12,8 @@ const getTokenFromHeader = (req) => {
     }
       return null;
 }
+
+// This constant will save the token downloaded during opened session.
 
 const auth = {
     required: jwt({

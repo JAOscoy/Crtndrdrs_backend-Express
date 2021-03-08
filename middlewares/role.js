@@ -1,7 +1,9 @@
+// Verify administrator credentials to access specific functionalities
+
 module.exports = (req, res, next) => {
-    const { role } = req.user;
+    const { nivelAcceso } = req.user;
   
-    if (role !== "ADMIN") {
+    if (nivelAcceso !== "ADMIN") {
       res.status(401).json({
         message: "No eres administrador",
         code: "NO_ADMIN"

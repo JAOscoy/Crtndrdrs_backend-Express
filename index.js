@@ -2,7 +2,7 @@
 
 require('dotenv').config();
 require('./config/database')();
-//require('./config/passport');
+require('./config/passport');
 
 // Import all packages to use
 
@@ -11,6 +11,7 @@ const express = require('express');
 const cors = require('cors'); 
 const fs = require('fs');
 const crypto = require('crypto');
+const oferta = require('./schemas/validation')
 
 /* Create https 
 
@@ -38,15 +39,17 @@ app.use(express.json()); // It let receive request body as JSON format
 
 app.use('/users', require('./routes/users'));
 app.use('/salesProduct', require('./routes/salesProduct'));
-//app.use('/salesDesign', require('./routes/salesDesign'));
+app.use('/salesDesign', require('./routes/salesDesign'));
 //app.use('/serviceOrders', require('./routes/salesDesign'));
 
+// Welcome page
+
 app.get('/', (req, res) => {
-  res.send('Bien hecho');
+  res.json('Bien hecho');
 })
 
 // Server running
 
 app.listen(process.env.PORT, function () {
-  console.log(`> Servidor escuchando el puerto ${process.env.PORT}`);
+  console.log(`> Servidor escuchando el puerto ${oferta.solicitud.tipo}`);
 });

@@ -1,3 +1,5 @@
+// Create connection with the mongo database
+
 const { connect , set } = require('mongoose');
 
 module.exports = async () => {
