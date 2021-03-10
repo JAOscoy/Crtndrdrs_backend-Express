@@ -4,6 +4,8 @@ const uniqueValidator = require("mongoose-unique-validator");
 const Router = require('express').Router();
 const mongoose = require("mongoose");
 const auth = require('../middlewares/auth');
+const passport = require('passport');
+
 
 // Get all users
 
@@ -20,7 +22,7 @@ Router.get('/', (req, res, next) =>{
   })
 });
 
-// Get User by Id
+/* Get User by Id
 
 Router.get('/:id', (req, res, next) => {
     userModel.findById(req.user.id, (err, user) => {
@@ -34,7 +36,7 @@ Router.get('/:id', (req, res, next) => {
         code: "USER not registered"})
       })
     });
-
+*/
 // Create new user
 
 Router.post('/', (req, res, next) => {

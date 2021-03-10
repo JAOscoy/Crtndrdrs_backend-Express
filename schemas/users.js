@@ -4,7 +4,9 @@ const { Schema, model } = require('mongoose');
 const oferta = require('./validation.js');
 const uniqueValidator = require("mongoose-unique-validator");
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken'); 
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const secret = process.env.JWT_SECRET
 
 // Create schema constructor according to the mongoDB collection
 
@@ -53,9 +55,7 @@ UserSchema.methods.generateJWT = () => {
   exp.setDate(today.getDate() + 7); //
 
   return jwt.sign({
-    id: this._id,
     email: this.email,
-    exp: parseInt(exp.getTime() / 1000),
   }, secret);
 };
 

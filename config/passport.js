@@ -1,5 +1,5 @@
 //Importing auth strategy --> passport-local
-//Importing passport, middleware para autenticación.
+//Importing passport, middleware to auth.
 
 const passport = require('passport');                       
 const LocalStrategy = require('passport-local').Strategy;   
