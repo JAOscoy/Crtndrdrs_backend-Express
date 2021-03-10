@@ -9,15 +9,15 @@ const userModel = require('../schemas/users');
 //Return users credentials after validation. Otherwise it returns error message if not valid.
 
 module.exports = passport.use(new LocalStrategy({                            
-  email: 'email',
-  password: 'password'
-}, (email, password, next) => {
-  userModel.findOne({ email: email }).then((user) => {
+  usernameField: 'email',
+  passwordField: 'password'
+}, function (email, password, next) {
+  userModel.findOne({ email: email }).then( function (user) {
     if (!user || !user.validatePassword(password)) {
       return next(null, false, { errors: { 'Acceso': 'invalido' } });
     }
     return next(null, user);
-  }).catch(next, (error)  => {
+  }).catch(next, function (error) {
     res.status(401).json({
       message: error.message,
       code: "Invalid Password"})

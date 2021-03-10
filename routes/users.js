@@ -75,7 +75,7 @@ Router.post('/', (req, res, next) => {
       return res.status(422).json({ errors: { password: "Ingresa contraseña correcta" } });
     }
   
-    passport.authenticate('local', { session: false }, function (err, user, info) {
+    passport.authenticate('local', { session: false }, (err, user, info) => {
       if (err) { return next(err); }
   
       if (user) {

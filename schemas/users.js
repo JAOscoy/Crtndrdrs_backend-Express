@@ -20,8 +20,8 @@ const UserSchema = new Schema({
     ciudad: { type: String, required: true },
     cartDesigns: [{ type: Schema.Types.ObjectId, ref: 'salesProduct'}],
     cartProducts: [{ type: Schema.Types.ObjectId, ref: 'salesDesign'}],
-    hash: String,
-    salt: String
+    hash: { type: String },
+    salt: { type: String }
   
   }, { timestamps: true } );
 
@@ -40,16 +40,18 @@ UserSchema.methods.createPassword = function (password) {
 
 // Validate if after receiving hash during login is the same as the generated originally. 
 
-UserSchema.methods.validatePassword = (password) => {
+UserSchema.methods.validatePassword = function (password) {
+  console.log(this.hash)
   const hash = crypto
-    .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
+    .pbkdf2Sync(password, this.salt , 10000, 512, "sha512")
     .toString("hex");
-  return this.hash === hash;
+  console.log(hash)
+  return this.hash === hash
 };
 
 // Generate JWT on this model with 7 days of validity.
 
-UserSchema.methods.generateJWT = () => {
+UserSchema.methods.generateJWT = function () {
   const today = new Date();
   const exp = new Date(today);
   exp.setDate(today.getDate() + 7); //
@@ -61,7 +63,7 @@ UserSchema.methods.generateJWT = () => {
 
 // Return user data with a valid token
 
-UserSchema.methods.toAuthJSON = () => {
+UserSchema.methods.toAuthJSON = function () {
   return {
     email: this.email,
     token: this.generateJWT()
@@ -70,7 +72,7 @@ UserSchema.methods.toAuthJSON = () => {
 
 // Return public data to refer badges
 
-UserSchema.methods.publicData = () => {
+UserSchema.methods.publicData = function () {
     return {
       nombre: this.nombre,
       nivelAcceso: this.nivelAcceso
