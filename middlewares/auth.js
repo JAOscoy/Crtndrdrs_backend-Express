@@ -15,20 +15,11 @@ const getTokenFromHeader = (req) => {
 
 // This constant will save the token downloaded during opened session.
 
-const auth = {
-    required: jwt({
+const auth = jwt({
         secret: secret,
         algorithms: ['HS256'],
         userProperty: 'user',
-        getToken: getTokenFromHeader
-    }),
-    optional: jwt({
-        secret: secret,
-        algorithms: ['HS256'],
-        userProperty: 'user',
-        credentialsRequired: false,
-        getToken: getTokenFromHeader
-    })
-};
+        getToken: getTokenFromHeader,
+    });
 
 module.exports = auth;

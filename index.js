@@ -1,4 +1,4 @@
-// Config .env file
+// Add .env file and connection files.
 
 require('dotenv').config();
 require('./config/database')();
@@ -7,7 +7,7 @@ require('./config/passport');
 // Import all packages to use
 
 const express = require('express');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const cors = require('cors'); 
 const fs = require('fs');
 const crypto = require('crypto');
@@ -28,7 +28,7 @@ const app = express();
 
 // Set Safety middlewares:
 
-// app.use(helmet()); // Add headers to protect transfered data.
+app.use(helmet()); // Add headers to protect transfered data.
 app.use(cors()) // CORS let specify from which domains is possible to communicate
 
 app.use(express.urlencoded({ extended: true })); // It will verify if the Content-type header matches
@@ -40,7 +40,7 @@ app.use(express.json()); // It let receive request body as JSON format
 app.use('/users', require('./routes/users'));
 app.use('/salesProduct', require('./routes/salesProduct'));
 app.use('/salesDesign', require('./routes/salesDesign'));
-//app.use('/serviceOrders', require('./routes/salesDesign'));
+app.use('/serviceOrders', require('./routes/salesDesign'));
 
 // Welcome page
 

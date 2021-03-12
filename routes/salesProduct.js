@@ -3,14 +3,16 @@
 const salesProductModel = require('../schemas/salesProduct.js');
 const uniqueValidator = require("mongoose-unique-validator");
 const Router = require('express').Router();
-const userModel = require('../schemas/users.js')
+const userModel = require('../schemas/users.js');
+const auth = require('../middlewares/auth');
+const role = require('../middlewares/role')
 
 
 // CRUD controllers
 
 // Get all products
 
-Router.get('/', (req, res, next) =>{
+Router.get('/', [ auth, role ], (req, res, next) => { 
     salesProductModel.find()
     .then((products) => {
       res.json({ data: products });
@@ -25,7 +27,7 @@ Router.get('/', (req, res, next) =>{
 
 // Post a new product
 
-Router.post('/', (req, res, next) => {
+Router.post('/', auth, (req, res, next) => {
   let { body } = req;
   new salesProductModel(body).save()
   .then((products) => {

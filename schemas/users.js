@@ -41,11 +41,9 @@ UserSchema.methods.createPassword = function (password) {
 // Validate if after receiving hash during login is the same as the generated originally. 
 
 UserSchema.methods.validatePassword = function (password) {
-  console.log(this.hash)
   const hash = crypto
     .pbkdf2Sync(password, this.salt , 10000, 512, "sha512")
     .toString("hex");
-  console.log(hash)
   return this.hash === hash
 };
 
@@ -58,6 +56,7 @@ UserSchema.methods.generateJWT = function () {
 
   return jwt.sign({
     email: this.email,
+    role: this.nivelAcceso, 
   }, secret);
 };
 
@@ -66,6 +65,7 @@ UserSchema.methods.generateJWT = function () {
 UserSchema.methods.toAuthJSON = function () {
   return {
     email: this.email,
+    role: this.nivelAcceso,
     token: this.generateJWT()
   };
 };

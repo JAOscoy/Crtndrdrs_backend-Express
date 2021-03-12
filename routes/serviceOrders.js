@@ -28,7 +28,7 @@ Router.get('/me/allOrders', (req, res, next) =>{
 
 Router.post('/me/newOrder', (req, res, next) => {
   const { body } = req;
-  userModel.findById(req.user.id, (err, user) => {
+  userModel.findById(req.user.email, (err, user) => {
     if (!user || err) {
       return res.sendStatus(401)
   } const { cartProducts, cartDesigns, email } = user

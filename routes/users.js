@@ -5,11 +5,12 @@ const Router = require('express').Router();
 const mongoose = require("mongoose");
 const auth = require('../middlewares/auth');
 const passport = require('passport');
+const role = require('../middlewares/role')
 
 
 // Get all users
 
-Router.get('/', (req, res, next) =>{
+Router.get('/', [ auth, role ], (req, res, next) => {
   userModel.find()
   .then((users) => {
     res.json({ data: users });
@@ -57,16 +58,15 @@ Router.post('/', (req, res, next) => {
 
   // Delete current user
 
-  Router.delete('/:id', auth.required, (req, res) => {
-    // únicamente borra a su propio usuario obteniendo el id del token
-    userModel.findOneAndDelete({ _id: req.user.id }).then(r => {         //Buscando y eliminando usuario en MongoDB.
+  Router.delete('/:id', auth, (req, res) => {
+    userModel.findOneAndDelete({ _id: req.user.id }).then(r => {        
       res.status(200).send(`Usuario ${req.params.id} eliminado: ${r}`);
     })
   })
 
   // Login
 
-  Router.post('/login', (req, res, next) => {
+  Router.post('/login', function (req, res, next) {
     if (!req.body.email) {
       return res.status(422).json({ errors: { email: "Ingresa dirección valida" } });
     }
