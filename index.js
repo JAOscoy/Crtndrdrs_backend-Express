@@ -44,7 +44,7 @@ app.use('/serviceOrders', require('./routes/salesDesign'));
 
 // Welcome page
 
-app.get('/', (req, res) => {
+app.get('/v1', (req, res) => {
   res.json('Bien hecho');
 })
 
