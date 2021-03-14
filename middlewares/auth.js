@@ -24,8 +24,7 @@ const auth = jwt({
 
 module.exports = function (req, res, next) {
   try {
-    auth;
-    next()
+    return auth
   } catch (e) {
     response.status(401).json({
       message: 'Necesitas iniciar sesión',
