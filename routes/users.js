@@ -40,7 +40,7 @@ Router.get('/:id', (req, res, next) => {
 */
 // Create new user
 
-Router.post('/', (req, res, next) => {
+Router.post('/', [auth, role], (req, res, next) => {
   const { body } = req,
   { password } = body;
 

@@ -22,4 +22,14 @@ const auth = jwt({
         getToken: getTokenFromHeader,
     });
 
-module.exports = auth;
+module.exports = function (req, res, next) {
+  try {
+    auth;
+    next()
+  } catch (e) {
+    response.status(401).json({
+      message: 'Necesitas iniciar sesión',
+      code: "NOT_LOGGED"
+    });
+  } 
+}
