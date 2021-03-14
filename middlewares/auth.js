@@ -22,12 +22,4 @@ const auth = jwt({
         getToken: getTokenFromHeader,
     }); 
 
-module.exports = (req, res, next) => {
-  if(!auth) {
-    res.status(401).json({
-      message: "Necesitas iniciar sesión",
-      code: "AUTH_FAILED"
-    })} else {
-      next()
-    }
-  }
+module.exports = auth;
