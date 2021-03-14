@@ -13,18 +13,24 @@ const getTokenFromHeader = (req) => {
       return null;
 }
 
-// This constant will save the token downloaded during opened session.
+/* This constant will save the token downloaded during opened session.
 
 const auth = jwt({
         secret: secret,
         algorithms: ['HS256'],
         userProperty: 'user',
         getToken: getTokenFromHeader,
-    });
+    }); */
 
 module.exports = function (req, res, next) {
   try {
-    return auth
+    const auth = jwt({
+      secret: secret,
+      algorithms: ['HS256'],
+      userProperty: 'user',
+      getToken: getTokenFromHeader,
+  })
+  next();
   } catch (e) {
     response.status(401).json({
       message: 'Necesitas iniciar sesión',
