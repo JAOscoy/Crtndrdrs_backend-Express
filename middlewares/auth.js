@@ -22,14 +22,4 @@ const auth = jwt({
         getToken: getTokenFromHeader,
     });
 
-module.exports = (req, res, next) => {
-  
-    if (!auth) {
-      res.status(401).json({
-        message: "Error en autentificación",
-        code: "NO_VALID_USER"
-      });
-    } else {
-      return auth;
-    }
-  }
+module.exports = auth;
