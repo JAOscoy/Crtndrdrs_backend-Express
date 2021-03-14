@@ -12,7 +12,7 @@ module.exports = passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
 }, function (email, password, next) {
-  userModel.findOne(email).then( function (user) {
+  userModel.findOne({ email: email }).then( function (user) {
     if (!user || !user.validatePassword(password)) {
       return next(null, false, { errors: { 'Acceso': 'invalido' } });
     }
