@@ -49,11 +49,7 @@ Router.post('/', (req, res, next) => {
   user.createPassword(password)
   user.save().then(user => {
     return res.status(201).json(user.toAuthJSON)
-  }).catch(next, (error)  => {
-    res.status(401).json({
-      message: error.message,
-      code: "USER not registered"})
-    })
+  }).catch(next)
   });
 
   // Delete current user

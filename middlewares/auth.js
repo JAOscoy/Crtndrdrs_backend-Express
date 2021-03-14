@@ -22,4 +22,14 @@ const auth = jwt({
         getToken: getTokenFromHeader,
     });
 
-module.exports = auth;
+module.exports = (req, res, next) => {
+  
+    if (!auth) {
+      res.status(401).json({
+        message: "Error autentificación",
+        code: "NO_ADMIN"
+      });
+    } else {
+      next(auth);
+    }
+  }

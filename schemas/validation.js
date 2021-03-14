@@ -13,7 +13,8 @@ const oferta = {
     estado: ["Pendiente", "Rechazada", "En proceso", "Finalizada"],
     solicitud: {
             tipo: ["solicitud", "pedido"]
-        }
+        },
+    role: ["ADMIN", "USER"]
     };
 
 module.exports = oferta

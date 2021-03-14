@@ -44,9 +44,9 @@ app.use('/serviceOrders', require('./routes/salesDesign'));
 
 // Welcome page
 
-app.get('/v1', (req, res) => {
-  res.json('Bien hecho');
-})
+app.get('/', (req, res) => {
+  res.json('Bienvenidos a la web de Crtndrdrs');
+});
 
 // Server running
 
