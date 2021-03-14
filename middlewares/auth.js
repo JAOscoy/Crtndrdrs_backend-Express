@@ -15,7 +15,7 @@ const getTokenFromHeader = (req) => {
 
 /* This constant will save the token downloaded during opened session.
 */
-const auth = function (req, res, next) {
+module.exports = function (req, res, next) {
   try {
     jwt({
         secret: secret,
@@ -32,4 +32,3 @@ const auth = function (req, res, next) {
   }
   }
 
-module.exports = auth;
