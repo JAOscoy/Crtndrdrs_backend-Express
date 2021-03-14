@@ -12,7 +12,7 @@ const role = require('../middlewares/role')
 
 // Get all products
 
-Router.get('/', (req, res, next) => { 
+Router.get('/', auth,  (req, res, next) => { 
     salesProductModel.find()
     .then((products) => {
       res.json({ data: products });

@@ -26,10 +26,10 @@ module.exports = (req, res, next) => {
   
     if (!auth) {
       res.status(401).json({
-        message: "Error autentificación",
+        message: "Error en autentificación",
         code: "NO_VALID_USER"
       });
     } else {
-      next(auth);
+      return auth;
     }
   }
