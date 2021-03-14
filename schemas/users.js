@@ -1,7 +1,6 @@
 // Require dependencies and tools to use.
 
 const { Schema, model } = require('mongoose');
-const oferta = require('./validation.js');
 const uniqueValidator = require("mongoose-unique-validator");
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
