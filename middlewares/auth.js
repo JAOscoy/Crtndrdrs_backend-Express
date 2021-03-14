@@ -15,7 +15,7 @@ const getTokenFromHeader = (req) => {
 
 /* This constant will save the token downloaded during opened session.
 */
-const auth = () => {
+const auth = function (req, res, next) {
   try {
     jwt({
         secret: secret,
@@ -23,6 +23,7 @@ const auth = () => {
         userProperty: 'user',
         getToken: getTokenFromHeader,
     })
+    next()
   }
   catch (error) {
     response.status(401).json({
