@@ -18,7 +18,7 @@ Router.get('/', [ auth, role ], (req, res, next) => {
   .catch(next, (error) => {
     res.status(401).json({
       message: error.message,
-      code: "GET_ALL_PRODUCTS"
+      code: "GET_ALL_USERS"
     })
   })
 });

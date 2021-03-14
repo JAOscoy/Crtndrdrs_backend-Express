@@ -22,4 +22,13 @@ const auth = jwt({
         getToken: getTokenFromHeader,
     }); 
 
-module.exports = auth;
+module.exports = (req, res) => {
+  if(!auth) {
+    res.status(401).json({
+    message: 'Necesitas iniciar sesion',
+    code: "NOT_AUTHORIZED"
+    })
+  } else {
+    return auth
+  }
+}
