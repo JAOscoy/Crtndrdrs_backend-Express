@@ -14,12 +14,12 @@ module.exports = passport.use(new LocalStrategy({
 }, function (email, password, next) {
   userModel.findOne({ email: email }).then( function (user) {
     if (!user || !user.validatePassword(password)) {
-      return next(null, false, { errors: { 'Acceso': 'invalido' } });
+      return next(null, false, { errors: { 'Acceso' :'Credenciales incorrectas' } });
     }
     return next(null, user);
   }).catch(next, function (error) {
     res.status(401).json({
       message: error.message,
-      code: "Invalid Password"})
+      code: "INVALID_PASSWORD"})
     })
   }));
