@@ -20,6 +20,6 @@ const auth = jwt({
         algorithms: ['HS256'],
         userProperty: 'user',
         getToken: getTokenFromHeader,
-    }); 
+    });
 
 module.exports = auth;
