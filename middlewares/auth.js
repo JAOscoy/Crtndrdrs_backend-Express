@@ -15,11 +15,20 @@ const getTokenFromHeader = (req) => {
 
 /* This constant will save the token downloaded during opened session.
 */
-const auth = jwt({
+const auth = () => {
+  try {
+    jwt({
         secret: secret,
         algorithms: ['HS256'],
         userProperty: 'user',
         getToken: getTokenFromHeader,
-    }); 
+    })
+  }
+  catch (error) {
+    response.status(401).json({
+    message: 'Necesitas iniciar sesión',
+    code: "NOT_AUTHORIZED"})
+  }
+  }
 
 module.exports = auth;
