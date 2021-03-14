@@ -48,7 +48,7 @@ Router.post('/', (req, res, next) => {
   const user = new userModel(body)
   user.createPassword(password)
   user.save().then(user => {
-    return res.status(201).json(user)
+    return res.status(201).json(user.toAuthJSON())
   }).catch(function (error) {
     response.status(400).json({
       message: error.message,
@@ -57,13 +57,13 @@ Router.post('/', (req, res, next) => {
   })
   });
 
-  // Delete current user
+  /* Delete current user
 
   Router.delete('/:id', auth, (req, res) => {
     userModel.findOneAndDelete({ email: req.user.email }).then(r => {        
       res.status(200).send(`Usuario ${req.user.email} eliminado: ${r}`);
     })
-  })
+  })*/
 
   // Login
 
