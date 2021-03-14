@@ -48,15 +48,20 @@ Router.post('/', (req, res, next) => {
   const user = new userModel(body)
   user.createPassword(password)
   user.save().then(user => {
-    return res.status(201).json(user.toAuthJSON)
-  }).catch(next)
+    return res.status(201).json(user)
+  }).catch(function (error) {
+    response.status(400).json({
+      message: error.message,
+      code: "El usuario no fue registrado"
+    })
+  })
   });
 
   // Delete current user
 
   Router.delete('/:id', auth, (req, res) => {
-    userModel.findOneAndDelete({ _id: req.user.id }).then(r => {        
-      res.status(200).send(`Usuario ${req.params.id} eliminado: ${r}`);
+    userModel.findOneAndDelete({ email: req.user.email }).then(r => {        
+      res.status(200).send(`Usuario ${req.user.email} eliminado: ${r}`);
     })
   })
 

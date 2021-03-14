@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const secret = process.env.JWT_SECRET
+const oferta = require('./validation.js');
 
 // Create schema constructor according to the mongoDB collection
 
@@ -15,7 +16,7 @@ const UserSchema = new Schema({
     razonSocial: { type: String, required: true, unique: true },
     nombreContacto: { type: String, required: true },
     email: { type: String, required: true, unique: true, index: true },
-    nivelAcceso: { type: String, required: true, enum: ['ADMIN', 'USER'] },
+    nivelAcceso: { type: String, required: true, enum: oferta.role },
     cp: { type: Number, required: true },
     ciudad: { type: String, required: true },
     cartDesigns: [{ type: Schema.Types.ObjectId, ref: 'salesProduct'}],
