@@ -51,5 +51,5 @@ app.get('/', (req, res) => {
 // Server running
 
 app.listen(process.env.PORT, function () {
-  console.log(`> Servidor escuchando el puerto ${oferta.solicitud.tipo}`);
+  console.log(`Servidor escuchando el puerto ${process.env.PORT}`);
 });

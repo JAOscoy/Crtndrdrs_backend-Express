@@ -19,7 +19,8 @@ const salesDesignSchema = new Schema({
     suaje: { type: Boolean, default: false},
     pesoKg: { type: Number },
     volumenm3: { type: Number },
-    status: { type: String, enum: oferta.status }
+    status: { type: String, enum: oferta.status },
+    idUsuario: { type: Schema.Types.ObjectId, ref: 'user'}
 }, { timestamps: true });
 
 // Including reference, schema and collection

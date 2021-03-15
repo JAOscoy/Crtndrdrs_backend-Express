@@ -7,13 +7,14 @@ const oferta = require('./validation.js');
 
 const serviceOrdersSchema = new Schema({
   email: { type: Schema.Types.Object, ref: 'user', required: true },
-  productosOrden: [{ type: Schema.Types.ObjectId, ref: 'product' }],
-  diseñosOrden: [{ type: Schema.Types.ObjectId, ref: 'product' }],
+  productosOrden: [{ type: Schema.Types.ObjectId, ref: 'user' }],
+  diseñosOrden: [{ type: Schema.Types.ObjectId, ref: 'user' }],
   estado: { type: String, enum: oferta.estado },
   tipo: { type: String, enum: oferta.solicitud.tipo },
   foliointerno: { type: String , unique: true, required: true }, 
   amount: { type: Number, required: true, min: 0 },
-  endDate: { type: Date }
+  endDate: { type: Date },
+  idUsuario: { type: Schema.Types.ObjectId, ref: 'user' }
 }, { timestamps: true });
 
 // Including reference, schema and collection

@@ -8,39 +8,36 @@ const passport = require('passport');
 const role = require('../middlewares/role')
 
 
-// Get all users
+/* Get all users*/
 
-Router.get('/', [ auth, role ], (req, res, next) => {
+Router.get('/', auth, function (req, res) {
+
   userModel.find()
-  .then((users) => {
-    res.json({ data: users });
-  })
-  .catch(next, (error) => {
-    res.status(401).json({
-      message: error.message,
-      code: "GET_ALL_USERS"
-    })
-  })
+    .then(function (user) {
+      res.json({ data: user });
+    }).catch(function (error) {
+      res.status(400).json({
+        message: error.message,
+        code: "USER_BY_ID"
+      });
+    });
 });
 
-/* Get User by Id
+// Get logged user
 
-Router.get('/:id', (req, res, next) => {
-    userModel.findById(req.user.id, (err, user) => {
-      if (!user || err) {
-        return res.sendStatus(401)
-      }
-      return res.json(user.publicData());
-    }).catch(next, (error) => {
-      res.status(401).json({
+Router.get('/me', auth, (req, res, next) => {                              //Obteniendo usuario desde MongoDB.
+  userModel.findOne({ email: req.user.email }).then( function (user) {
+    res.json({ data: user.toAuthJSON() })}).catch(function (error) {
+      res.status(400).json({
         message: error.message,
-        code: "USER not registered"})
-      })
-    });
-*/
+        code: "USER_BY_ID"
+      });
+    })
+})
+
 // Create new user
 
-Router.post('/', [auth, role], (req, res, next) => {
+Router.post('/', (req, res, next) => {
   const { body } = req,
   { password } = body;
 
@@ -55,15 +52,29 @@ Router.post('/', [auth, role], (req, res, next) => {
       code: "El usuario no fue registrado"
     })
   })
-  });
+  })
 
-  /* Delete current user
+  // Modify user
 
-  Router.delete('/:id', auth, (req, res) => {
+  Router.put('/me', auth, (req, res) => {
+    const { body } = req;
+    userModel.findOneAndUpdate(
+      { email: req.user.email },
+      { $set: body } 
+    ).then(user => {
+      return res.status(201).json(body)
+    }).catch(function (error) {
+      response.status(400).json({
+        message: error.message,
+        code: "No fue posible actualizar"})})})
+
+  // Delete current user
+
+  Router.delete('/me', auth, (req, res) => {
     userModel.findOneAndDelete({ email: req.user.email }).then(r => {        
       res.status(200).send(`Usuario ${req.user.email} eliminado: ${r}`);
     })
-  })*/
+  })
 
   // Login
 
@@ -87,6 +98,7 @@ Router.post('/', [auth, role], (req, res, next) => {
       }
     })(req, res, next);
   })
+
 
 
 module.exports = Router;

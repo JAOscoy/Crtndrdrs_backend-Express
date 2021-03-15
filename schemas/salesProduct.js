@@ -18,6 +18,7 @@ const salesProductSchema = new Schema({
     tipoUnion: { type: String, required: true, enum: oferta.tipoUnion },
     suaje: { type: Boolean, default: false},
     status: { type: String, enum: oferta.status },
+    idUsuario: { type: Schema.Types.ObjectId, ref: 'user'}
 }, { timestamps: true });
 
 // Including reference, schema and collection

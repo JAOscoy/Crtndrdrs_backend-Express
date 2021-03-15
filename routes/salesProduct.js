@@ -12,7 +12,7 @@ const role = require('../middlewares/role')
 
 // Get all products
 
-Router.get('/', auth,  (req, res, next) => { 
+Router.get('/', [ auth, role ],  (req, res, next) => { 
     salesProductModel.find()
     .then((products) => {
       res.json({ data: products });
@@ -41,14 +41,14 @@ Router.post('/', auth, (req, res, next) => {
   })
 });
 
-Router.post('/me/salesProducts', (req, res) => {
+Router.post('/me/salesProducts', auth, (req, res) => {
   const { body } = req;
-  const { id } = req.user;
+  const { email } = req.user;
   new salesProductModel(body).save()
     .then((document) => {
       res.json({ data: document })
       const { idLocal } = document;
-      userModel.findByIdAndUpdate(id, { $push: { cartProducts: idLocal   } })
+      userModel.findByIdAndUpdate( { email: email }, { $push: { cartProducts: idLocal } })
     .then(function () {
       res.json(document);
     })
