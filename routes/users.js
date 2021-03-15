@@ -45,7 +45,7 @@ Router.post('/', (req, res, next) => {
   const user = new userModel(body)
   user.createPassword(password)
   user.save().then(user => {
-    return res.status(201).json(user.toAuthJSON())
+    res.status(201).json(user.toAuthJSON())
   }).catch(function (error) {
     response.status(400).json({
       message: error.message,
@@ -58,11 +58,20 @@ Router.post('/', (req, res, next) => {
 
   Router.put('/me', auth, (req, res) => {
     const { body } = req;
+    delete body.password
+    delete body.email
+    delete body.hash
+    delete body.salt
+    delete body.nivelAcceso
+    delete body._id
+    delete body.createdAt
+    delete body.updatedAt
     userModel.findOneAndUpdate(
       { email: req.user.email },
-      { $set: body } 
+      { $set: body },
+      { new: true } 
     ).then(user => {
-      return res.status(201).json(body)
+      res.status(201).json(user.userData() )
     }).catch(function (error) {
       response.status(400).json({
         message: error.message,

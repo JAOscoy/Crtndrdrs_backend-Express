@@ -55,7 +55,7 @@ Router.post('/me/salesProducts', auth, (req, res) => {
     .catch((error) => {
       res.status(400).json({
         message: error.message,
-        code: "CARTPRODUCTS_PUSH"
+        code: "CART_PRODUCTS_PUSH"
       });
     })
     })

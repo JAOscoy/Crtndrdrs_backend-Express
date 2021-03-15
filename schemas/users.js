@@ -74,9 +74,24 @@ UserSchema.methods.toAuthJSON = function () {
 UserSchema.methods.publicData = function () {
     return {
       nombre: this.nombre,
-      nivelAcceso: this.nivelAcceso
+      role: this.nivelAcceso,
     };
   };
+
+UserSchema.methods.userData = function () {
+  return {
+    nombre: this.nombre,
+    role: this.nivelAcceso,
+    cartDesigns: this.cartDesigns,
+    cartProducts: this.cartProducts,
+    apellidoContacto: this.apellidoContacto,
+    nombreContacto: this.nombreContacto,
+    email: this.email,
+    ciudad: this.ciudad,
+    cp: this.cp,
+    razonSocial: this.razonSocial,
+  };
+};
 
   // Including reference, schema and collection
   
