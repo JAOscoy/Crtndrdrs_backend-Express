@@ -19,6 +19,7 @@ La API se encuentra en el siguiente [enlace](https://crtndrdrs.herokuapp.com/).
 
 ### Productos relacionados con el diseño de corrugado (Design products structure)
 
+```
 {
   "suaje": false,
   "_id": "60503cbdd531ee34def85d07",
@@ -29,9 +30,11 @@ La API se encuentra en el siguiente [enlace](https://crtndrdrs.herokuapp.com/).
   "updatedAt": "2021-03-16T05:06:05.179Z",
   "__v": 0
 }
+```
 
 ### Productos relacionados con la venta de corrugado (Sales product structure)
 
+```
 {
     "suaje": false,
     "_id": "5fc3d5a130024fb085af64ab",
@@ -46,9 +49,11 @@ La API se encuentra en el siguiente [enlace](https://crtndrdrs.herokuapp.com/).
     "alto": 30.3,
     "tipoUnion": "CIG"
 }
+```
 
 ### Pedidos con uno o varios productos (Service Order structure)
 
+```
 {
     "productosOrden": [],
     "disenosOrden": [],
@@ -68,6 +73,7 @@ La API se encuentra en el siguiente [enlace](https://crtndrdrs.herokuapp.com/).
     "fechaEmision": "2020-09-09T00:00:00.000Z",
     "fechaCierre": "2020-09-10T00:00:00.000Z"
 }
+```
 
 ## Endpoints
 
@@ -77,18 +83,18 @@ POST /users/login
 
 Ejemplo request.body (Example request body):
 
+```
 {
 	"email": "mail@domain.com",
 	"password": "S3crett1234"
 }
+```
 
 No requiere autentificación. Regresa usuario y TOKEN. (No authentication required, returns JWT and main user data)
 
 ### Obtener información de usuario actual. (Get logged user data)
 
 GET /users/me
-
-Ejemplo request.body (Example request body):
 
 Requiere autentificación, por medio del token regresa los datos guardados en req.user (Requires authentication, data is obtained from JWT req.user ).
 
@@ -98,6 +104,7 @@ POST /users
 
 Ejemplo request.body (Example request body):
 
+```
 {    
 	"apellidoContacto": "lastName",
     "nombreContacto": "firstName",
@@ -111,12 +118,15 @@ Ejemplo request.body (Example request body):
     "razonSocial": "company name CO",
     "password": "Secre3tpassw0rd"
 }
+```
 
 No requiere autentificación. Regresa usuario nuevo con nivel de acceso "USER". (No authentication required, returns new user data "USER" level access).
 
 Requeridos (Required):
 
+```
 email, password, lastName, ciudad, apellidoContacto, nombreContacto
+```
 
 ### Get all users on the DBMS
 
@@ -130,6 +140,7 @@ PUT /me/users
 
 Ejemplo request.body (Example request body):
 
+```
 {
     "calle": "Street",
     "numero": "number",
@@ -137,6 +148,7 @@ Ejemplo request.body (Example request body):
     "ciudad": "city",
     "cp": 55991, 
 }
+```
 
 Requiere autentificación, y los campos email, password, nivel de acceso y las fechas no pueden ser modificados. En el body puede tener uno o más campos. (Requires authentication. Email, password, role and dates cannot be modified, body can contains one or more fields).
 
@@ -158,44 +170,51 @@ POST /salesProduct/me
 
 Ejemplo request.body (Example request body):
 
+```
 {
 	"idLocal": "dfedefg47",
 	"descripcion": "Cajas de 24Kg",
     "pesoKg": 36
 }
+```
 
 Requiere autentificación, regresa producto creado y el objeto es incluido en el carrito de compra del usuario autentificado. Puede añadir tantos campos como esten disponibles (Requires authentication and the created product is pushed into the logged user cart, they can add as many fields as needed). 
 
 Requeridos (Required):
-
+```
 idLocal
-
+```
 ### Modify sales products by local id
 
 PUT /salesProduct/:idLocal
 
 Ejemplo request.body (Example request body):
 
+```
 {
 	"idLocal": "drd4w3",
 	"suaje": true
 }
+```
 
 Requiere autentificación, y los campos idUsuario, idLocal y las fechas no pueden ser modificados. En el body puede tener uno o más campos. (Requires authentication. idUsuario, idLocal and dates cannot be modified, body can contains one or more fields).
 
 Requeridos (Required):
 
+```
 idLocal
-
+```
 ### Delete sales product by local id
 
 DELETE /salesProduct/:idLocal
 
 Ejemplo request.body (Example request body):
 
+```
 {
 	"idLocal": "drd4w3",
 }
+```
 
 Requiere autentificación. (Requires authentication).
 
