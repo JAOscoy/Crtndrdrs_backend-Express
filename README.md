@@ -7,6 +7,7 @@ La API se encuentra en el siguiente [enlace](https://crtndrdrs.herokuapp.com/).
 
 ### Usuarios para autentificación (Authenticated users)
 
+```
 {
   "user": {
     "email": "ja.oscoyml@domain.com",
@@ -14,6 +15,7 @@ La API se encuentra en el siguiente [enlace](https://crtndrdrs.herokuapp.com/).
     "token": "eyJhbY295bWxAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjE1ODY3Njk5fQ.T51v67oo7YiWhHXn66iX05pwsmmkXgyGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphLm9zPydP5piZPpT8"
   }
 }
+```
 
 ### Productos relacionados con el diseño de corrugado (Design products structure)
 
