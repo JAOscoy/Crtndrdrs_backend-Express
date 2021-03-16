@@ -12,11 +12,11 @@ const oferta = require('./validation.js');
 
 const UserSchema = new Schema({
     apellidoContacto: { type: String, required: true },
-    razonSocial: { type: String, required: true, unique: true },
+    razonSocial: { type: String, unique: true },
     nombreContacto: { type: String, required: true },
     email: { type: String, required: true, unique: true, index: true },
     nivelAcceso: { type: String, required: true, enum: oferta.role },
-    cp: { type: Number, required: true },
+    cp: { type: Number },
     ciudad: { type: String, required: true },
     cartDesigns: [{ type: Schema.Types.Mixed, ref: 'salesProduct'}],
     cartProducts: [{ type: Schema.Types.Mixed, ref: 'salesDesign'}],

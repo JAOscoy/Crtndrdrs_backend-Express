@@ -7,7 +7,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 // Create schema constructor according to the mongoDB collection
 
 const salesDesignSchema = new Schema({
-    idLocal: { type: String, unique: true, index: true },
+    idLocal: { type: String, unique: true, index: true, required: true},
     estructura: { type: String, enum:  oferta.estructura },
     descripcion: { type: String, max: 150 },
     tipo: { type: String, enum: oferta.tipo },
