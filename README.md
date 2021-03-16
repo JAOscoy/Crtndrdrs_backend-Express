@@ -122,11 +122,8 @@ Ejemplo request.body (Example request body):
 
 No requiere autentificación. Regresa usuario nuevo con nivel de acceso "USER". (No authentication required, returns new user data "USER" level access).
 
-Requeridos (Required):
+Requeridos (Required): `email`, `password`, `lastName`, `ciudad`, `apellidoContacto`, `nombreContacto`
 
-```
-email, password, lastName, ciudad, apellidoContacto, nombreContacto
-```
 
 ### Get all users on the DBMS
 
@@ -180,10 +177,8 @@ Ejemplo request.body (Example request body):
 
 Requiere autentificación, regresa producto creado y el objeto es incluido en el carrito de compra del usuario autentificado. Puede añadir tantos campos como esten disponibles (Requires authentication and the created product is pushed into the logged user cart, they can add as many fields as needed). 
 
-Requeridos (Required):
-```
-idLocal
-```
+Requeridos (Required): `idLocal`
+
 ### Modify sales products by local id
 
 PUT /salesProduct/:idLocal
@@ -199,11 +194,8 @@ Ejemplo request.body (Example request body):
 
 Requiere autentificación, y los campos idUsuario, idLocal y las fechas no pueden ser modificados. En el body puede tener uno o más campos. (Requires authentication. idUsuario, idLocal and dates cannot be modified, body can contains one or more fields).
 
-Requeridos (Required):
+Requeridos (Required): `idLocal`
 
-```
-idLocal
-```
 ### Delete sales product by local id
 
 DELETE /salesProduct/:idLocal
