@@ -1,22 +1,24 @@
 // Importing tools from dependencies and constants
 
 const { Schema, model } = require('mongoose');
-const oferta = require('./validation.js'); 
+const oferta = require('./validation.js');
+const uniqueValidator = require("mongoose-unique-validator");
 
 // Create schema constructor according to the mongoDB collection
 
 const serviceOrdersSchema = new Schema({
-  email: { type: Schema.Types.Object, ref: 'user', required: true },
-  productosOrden: [{ type: Schema.Types.ObjectId, ref: 'user' }],
-  diseñosOrden: [{ type: Schema.Types.ObjectId, ref: 'user' }],
+  productosOrden: [{ type: Schema.Types.Mixed, ref: 'user' }],
+  disenosOrden: [{ type: Schema.Types.Mixed, ref: 'user' }],
   estado: { type: String, enum: oferta.estado },
-  tipo: { type: String, enum: oferta.solicitud.tipo },
-  foliointerno: { type: String , unique: true, required: true }, 
-  amount: { type: Number, required: true, min: 0 },
+  tipo: { type: String },
+  foliointerno: { type: String , unique: true, index: true }, 
+  amount: { type: Number },
   endDate: { type: Date },
-  idUsuario: { type: Schema.Types.ObjectId, ref: 'user' }
+  idUsuario: { type: Schema.Types.Mixed, ref: 'user' }
 }, { timestamps: true });
+
+serviceOrdersSchema.plugin(uniqueValidator, { message: "Ya existe" });
 
 // Including reference, schema and collection
 
-module.exports = model('serviceOrders', serviceOrdersSchema, 'ordenesCompra');
+module.exports = model('serviceOrders', serviceOrdersSchema, 'solicitudesServicios');

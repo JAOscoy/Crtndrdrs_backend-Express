@@ -18,8 +18,8 @@ const UserSchema = new Schema({
     nivelAcceso: { type: String, required: true, enum: oferta.role },
     cp: { type: Number, required: true },
     ciudad: { type: String, required: true },
-    cartDesigns: [{ type: Schema.Types.ObjectId, ref: 'salesProduct'}],
-    cartProducts: [{ type: Schema.Types.ObjectId, ref: 'salesDesign'}],
+    cartDesigns: [{ type: Schema.Types.Mixed, ref: 'salesProduct'}],
+    cartProducts: [{ type: Schema.Types.Mixed, ref: 'salesDesign'}],
     hash: { type: String },
     salt: { type: String }
   }, { timestamps: true });

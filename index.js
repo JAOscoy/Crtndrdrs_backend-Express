@@ -40,7 +40,7 @@ app.use(express.json()); // It let receive request body as JSON format
 app.use('/users', require('./routes/users'));
 app.use('/salesProduct', require('./routes/salesProduct'));
 app.use('/salesDesign', require('./routes/salesDesign'));
-app.use('/serviceOrders', require('./routes/salesDesign'));
+app.use('/serviceOrders', require('./routes/serviceOrders'));
 
 // Welcome page
 

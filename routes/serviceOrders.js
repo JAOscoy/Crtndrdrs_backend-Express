@@ -6,12 +6,14 @@ const Router = require('express').Router();
 const userModel = require('../schemas/users.js');
 const serviceOrdersModel = require('../schemas/serviceOrders.js');
 const salesProductModel = require('../schemas/salesProduct.js');
+const auth = require('../middlewares/auth');
+const role = require('../middlewares/role');
 
 // Create a constant to manage router through the app
 
 // Get all orders
 
-Router.get('/me/allOrders', (req, res, next) =>{
+Router.get('/me/allOrders', [ auth, role ], (req, res, next) =>{
     serviceOrdersModel.find()
     .then(function (products) {
       res.json({ data: products });
@@ -24,31 +26,37 @@ Router.get('/me/allOrders', (req, res, next) =>{
     })
 });
 
-// Create new order from carts
+// Create new order from carts ({{
 
-Router.post('/me/newOrder', (req, res, next) => {
+Router.post('/newOrder', auth, (req, res, next) => {
   const { body } = req;
-  userModel.findById(req.user.email, (err, user) => {
-    if (!user || err) {
-      return res.sendStatus(401)
-  } const { cartProducts, cartDesigns, email } = user
-  const serviceOrder = new serviceOrdersModel()
-  serviceOrder.email = email;
-  serviceOrder.productosOrden = cartProducts;
-  serviceOrder.diseñosOrden = cartDesigns;
-  serviceOrder.estado = "Pendiente";
-  serviceOrder.save(body)
-  .then((order) => {
-    res.json({ data: order });
-    user.cartProducts = [];
-    user.cartDesigns = [];
-  })
-  .catch(next, (error) => {
-    res.status(401).json({
-      message: error.message,
-      code: "Order not registered"
-    })
-  })
-})});
+  userModel.findOne({ email: req.user.email }).then(user => {
+    if (!user) { return res.sendStatus(401).json('Error') } 
+    else {
+      const { cartProducts, cartDesigns, email } = user
+      const serviceOrder = new serviceOrdersModel(body)
+      serviceOrder.idUsuario = email;
+      serviceOrder.productosOrden = cartProducts;
+      serviceOrder.disenosOrden = cartDesigns;
+      serviceOrder.estado = "Pendiente";
+      serviceOrder.save().then(order => {
+        res.json(order)
+        userModel.findOneAndUpdate(
+          { email: req.user.email },
+          { $set: {"cartDesigns": [], "cartProducts": [] } },
+          { new: true }).then((user) => {
+            res.status(201)
+          }).catch((error) => {
+            res.status(405).json({
+              message: err.message,
+              code: "Order not registered"
+            })
+          })}).catch((err) => {
+        res.status(403).json({
+          message: err.message,
+          code: "Order not registered" })})
+    }})});
+        
+// 
 
 module.exports = Router;

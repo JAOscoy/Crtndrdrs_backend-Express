@@ -4,8 +4,8 @@ const uniqueValidator = require("mongoose-unique-validator");
 const Router = require('express').Router();
 const mongoose = require("mongoose");
 const auth = require('../middlewares/auth');
+const role = require('../middlewares/role');
 const passport = require('passport');
-const role = require('../middlewares/role')
 
 
 /* Get all users*/
@@ -40,6 +40,7 @@ Router.get('/me', auth, (req, res, next) => {                              //Obt
 Router.post('/', (req, res, next) => {
   const { body } = req,
   { password } = body;
+  body.nivelAcceso = "USER";
 
   delete body.password
   const user = new userModel(body)
@@ -47,7 +48,7 @@ Router.post('/', (req, res, next) => {
   user.save().then(user => {
     res.status(201).json(user.toAuthJSON())
   }).catch(function (error) {
-    response.status(400).json({
+      res.status(400).json({
       message: error.message,
       code: "El usuario no fue registrado"
     })
@@ -70,7 +71,7 @@ Router.post('/', (req, res, next) => {
       { email: req.user.email },
       { $set: body },
       { new: true } 
-    ).then(user => {
+    ).then((user) => {
       res.status(201).json(user.userData() )
     }).catch(function (error) {
       response.status(400).json({
