@@ -10,9 +10,9 @@ La API se encuentra en el siguiente [enlace](https://crtndrdrs.herokuapp.com/).
 ```
 {
   "user": {
-    "email": "ja.oscoyml@domain.com",
+    "email": "address@domain.com",
     "role": "ADMIN",
-    "token": "eyJhbY295bWxAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjE1ODY3Njk5fQ.T51v67oo7YiWhHXn66iX05pwsmmkXgyGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphLm9zPydP5piZPpT8"
+    "token": "eyJhbY295bWxAZ21haWwuY29tIiwicm9sZSI6IkFETUlOdefgrNjk5fQ.T51v67oo7YiWhHXn66iX05pwsmmkXgyGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphLm9zPydP5piZPpT8"
   }
 }
 ```
@@ -25,7 +25,7 @@ La API se encuentra en el siguiente [enlace](https://crtndrdrs.herokuapp.com/).
   "_id": "60503cbdd531ee34def85d07",
   "idLocal": "dfedefg47",
   "descripcion": "Cajas de 24Kg",
-  "idUsuario": "ja.oscoyml@gmail.com",
+  "idUsuario": "address@domain.com",
   "createdAt": "2021-03-16T05:06:05.179Z",
   "updatedAt": "2021-03-16T05:06:05.179Z",
   "__v": 0
